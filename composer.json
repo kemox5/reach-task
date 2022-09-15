@@ -26,12 +26,15 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\": "Modules/",
-            "Modules\\Ads\\App\\": "Modules/Ads/app/"
+            "Modules\\Ads\\App\\": "Modules/Ads/app/",
+            "Modules\\Ads\\Database\\Factories\\": "Modules/Ads/database/factories/",
+            "Modules\\Ads\\Database\\Seeders\\": "Modules/Ads/database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Modules\\Ads\\Tests\\": "Modules/Ads/tests/"
         }
     },
     "scripts": {

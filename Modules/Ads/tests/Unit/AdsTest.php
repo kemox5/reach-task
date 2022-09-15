@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit;
+namespace Modules\Ads\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
+class AdsTest extends TestCase
 {
     /**
      * A basic test example.
