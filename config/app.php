@@ -186,6 +186,8 @@ return [
          * Package Service Providers...
          */
 
+        Modules\Ads\App\Providers\AdsServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
