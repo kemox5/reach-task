@@ -4,6 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Modules\Ads\App\Models\Ad;
+use Modules\Ads\App\Models\Advertiser;
+use Modules\Ads\App\Models\Category;
+use Modules\Ads\App\Models\Tag;
 use Modules\Ads\Database\Seeders\AdvertiserSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,8 +28,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        $this->call([
-            AdvertiserSeeder::class,
-        ]);
+        Advertiser::factory(5)->create();
+        Tag::factory(20)->create();
+        Category::factory(5)->create();
+        Ad::factory(50)->create()->each(function ($ad) {
+            DB::table('ad_tag')->insert([
+                'ad_id' => $ad->id,
+                'tag_id' => rand(1, 20)
+            ]);
+        });
     }
 }
