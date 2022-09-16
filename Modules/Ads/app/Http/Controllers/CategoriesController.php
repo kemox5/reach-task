@@ -3,6 +3,7 @@
 namespace Modules\Ads\App\Http\Controllers;
 
 use App\Http\Controllers\ApisController;
+use Illuminate\Http\Request;
 use Modules\Ads\App\Http\Requests\Category\StoreCategoryRequest;
 use Modules\Ads\App\Http\Requests\Category\UpdateCategoryRequest;
 use Modules\Ads\App\Models\Category;
@@ -14,9 +15,21 @@ class CategoriesController extends ApisController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $page = $request->input('page') ?? 1;
+        $page_size = $request->input('page_size') ?? 20;
+
+        $categories = Category::limit($page_size)->skip(($page - 1) * $page_size)->get();
+        
+        $data = [
+            'page' => $page,
+            'page_size' => $page_size,
+            'total' => Category::count(),
+            'items' => $categories
+        ];
+
+        return $this->success($data);
     }
 
     /**

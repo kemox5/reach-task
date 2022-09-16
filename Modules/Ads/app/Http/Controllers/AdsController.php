@@ -3,20 +3,46 @@
 namespace Modules\Ads\App\Http\Controllers;
 
 use App\Http\Controllers\ApisController;
+use Illuminate\Http\Request;
 use Modules\Ads\App\Http\Requests\Ad\StoreAdRequest;
 use Modules\Ads\App\Http\Requests\Ad\UpdateAdRequest;
+use Modules\Ads\App\Traits\AdFilters;
 use Modules\Ads\App\Models\Ad;
 
 class AdsController extends ApisController
 {
+    use AdFilters;
+
+    private $relations = ['category:id,name', 'tags:id,name', 'advertiser:id,name,email'];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $page = $request->input('page') ?? 1;
+        $page_size = $request->input('page_size') ?? 20;
+
+        $query = Ad::with($this->relations);
+
+        // check if filter params exists and apply filters to query
+        $this->filter($query);
+
+        // paginate result
+        $items = $query
+            ->limit($page_size)->skip(($page - 1) * $page_size)
+            ->get();
+
+
+        $data = [
+            'page' => $page,
+            'page_size' => $page_size,
+            'total' => $query->count(),
+            'items' => $items
+        ];
+
+        return $this->success($data);
     }
 
     /**
@@ -34,7 +60,7 @@ class AdsController extends ApisController
             $ad->tags()->sync($request->input('tags'));
         }
 
-        $ad->load(['category', 'tags']);
+        $ad->load($this->relations);
 
         return $this->success($ad);
     }
@@ -47,7 +73,7 @@ class AdsController extends ApisController
      */
     public function show(Ad $ad)
     {
-        $ad->load(['category', 'tags']);
+        $ad->load($this->relations);
 
         return $this->success($ad);
     }
@@ -66,7 +92,7 @@ class AdsController extends ApisController
             $ad->tags()->sync($request->input('tags'));
         }
 
-        $ad->load(['category', 'tags']);
+        $ad->load($this->relations);
 
         return $this->success($ad);
     }

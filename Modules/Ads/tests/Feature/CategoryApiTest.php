@@ -83,4 +83,21 @@ class CategoryApiTest extends TestCase
         $response = $this->get(self::BASE . '/1', ['accept' => 'application/json']);
         $response->assertStatus(404);
     }
+
+
+
+    public function test_list_categories_and_pagination()
+    {
+        Category::factory(10)->create();
+        $response = $this->get(self::BASE . '?page=1&page_size=5',  ['accept' => 'application/json']);
+
+
+        $response->assertStatus(200)
+            ->assertJsonCount(5, "data.items")
+            ->assertJson(function ($json) {
+                $json->where('success', true);
+                $json->where('data.total', 10);
+                $json->etc();
+            });
+    }
 }

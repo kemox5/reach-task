@@ -4,6 +4,8 @@ namespace Modules\Ads\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Ads\App\Models\Ad;
+use Modules\Ads\App\Models\Advertiser;
+use Modules\Ads\App\Models\Category;
 use Modules\Ads\App\Models\Tag;
 use Tests\TestCase;
 
@@ -36,6 +38,78 @@ class AdsApiTest extends TestCase
             });
     }
 
+
+    public function test_filter_by_category()
+    {
+        Category::factory(2)->create()->each(function ($category) {
+            Ad::factory(3)->create([
+                'category_id' => $category->id
+            ]);
+        });
+
+        $response = $this->get(self::BASE . '?filters[category_id]=2',  ['accept' => 'application/json']);
+        $response->assertStatus(200)
+            ->assertJson(function ($json) {
+                $json->where('success', true);
+                $json->has('data.items', '3', function ($j) {
+                    $j->where('category_id', 2)->etc();
+                });
+                $json->etc();
+            });
+    }
+
+    public function test_filter_by_advertiser()
+    {
+        Advertiser::factory(2)->create()->each(function ($advertiser) {
+            Ad::factory(3)->create([
+                'advertiser_id' => $advertiser->id
+            ]);
+        });
+
+        $response = $this->get(self::BASE . '?filters[advertiser_id]=2',  ['accept' => 'application/json']);
+        $response->assertStatus(200)
+            ->assertJson(function ($json) {
+                $json->where('success', true);
+                $json->has('data.items', '3', function ($j) {
+                    $j->where('advertiser_id', 2)->etc();
+                });
+                $json->etc();
+            });
+    }
+
+    public function test_filter_by_tags()
+    {
+        $tag = Tag::factory()->create();
+
+        Ad::factory(3)->create()->first()->tags()->sync($tag->id);
+
+        $response = $this->get(self::BASE . '?filters[tag_id]=' . $tag->id,  ['accept' => 'application/json']);
+        $response->assertStatus(200)
+            ->assertJson(function ($json) {
+                $json->where('success', true);
+                $json->has('data.items', '1');
+                $json->etc();
+            });
+    }
+
+
+    public function test_list_ads_and_pagination()
+    {
+        $ad = Ad::factory(10)->create();
+        $response = $this->get(self::BASE . '?page=1&page_size=5',  ['accept' => 'application/json']);
+
+
+        $response->assertStatus(200)
+            ->assertJsonCount(5, "data.items")
+            ->assertJson(function ($json) {
+                $json->where('success', true);
+                $json->where('data.total', 10);
+                $json->etc();
+            });
+    }
+
+
+
     public function test_advertiser_exists_validation_in_create()
     {
         $ad = Ad::factory()->create()->toArray();
@@ -47,8 +121,9 @@ class AdsApiTest extends TestCase
                 $json->where('success', false);
                 $json->has('errors.advertiser_id');
                 $json->etc();
-            });;
+            });
     }
+
 
 
     public function test_advertiser_exists_validation_in_update()
@@ -61,7 +136,7 @@ class AdsApiTest extends TestCase
                 $json->where('success', false);
                 $json->has('errors.advertiser_id');
                 $json->etc();
-            });;
+            });
     }
 
     public function test_category_exists_validation_in_create()

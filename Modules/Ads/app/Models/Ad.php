@@ -22,6 +22,11 @@ class Ad extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function advertiser()
+    {
+        return $this->belongsTo(Advertiser::class);
+    }
+
     protected static function newFactory()
     {
         return AdFactory::new();
