@@ -29,7 +29,9 @@ class UpdateAdRequest extends ApiRequest
             'description' => ['nullable'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'advertiser_id' => ['nullable', 'exists:advertisers,id'],
-            'start_date' => ['nullable', 'date']
+            'start_date' => ['nullable', 'date'],
+            'tags' => ['array', 'nullable'],
+            'tags.*' => ['exists:tags,id']
         ];
     }
 }

@@ -3,10 +3,10 @@
 namespace Modules\Ads\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Ads\App\Models\Category;
+use Modules\Ads\App\Models\Tag;
 use Tests\TestCase;
 
-class CategoryApiTest extends TestCase
+class TagApiTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -15,7 +15,7 @@ class CategoryApiTest extends TestCase
      * @return void
      */
 
-    private const BASE = '/api/category';
+    private const BASE = '/api/tag';
 
     public function test_required_fields()
     {
@@ -31,9 +31,9 @@ class CategoryApiTest extends TestCase
 
     public function test_unique_fields()
     {
-        $category = Category::factory()->create()->toArray();
+        $tag = Tag::factory()->create()->toArray();
 
-        $response = $this->post(self::BASE, $category, ['accept' => 'application/json']);
+        $response = $this->post(self::BASE, $tag, ['accept' => 'application/json']);
         $response
             ->assertStatus(422)
             ->assertJson(function ($json) {
@@ -45,37 +45,37 @@ class CategoryApiTest extends TestCase
 
     public function test_create()
     {
-        $category = Category::factory()->make()->toArray();
-        $response = $this->post(self::BASE,  $category, ['accept' => 'application/json']);
+        $tag = Tag::factory()->make()->toArray();
+        $response = $this->post(self::BASE,  $tag, ['accept' => 'application/json']);
         $response->assertStatus(200);
-        $this->assertDatabaseCount('categories', 1);
+        $this->assertDatabaseCount('tags', 1);
     }
 
     public function test_read()
     {
-        $category = Category::factory()->create();
-        $response = $this->get(self::BASE . '/' . $category->id, ['accept' => 'application/json']);
+        $tag = Tag::factory()->create();
+        $response = $this->get(self::BASE . '/' . $tag->id, ['accept' => 'application/json']);
         $response->assertStatus(200)
-            ->assertJson(function ($json) use ($category) {
-                $json->where('data.id', $category->id)
+            ->assertJson(function ($json) use ($tag) {
+                $json->where('data.id', $tag->id)
                     ->etc();
             });
     }
 
     public function test_update()
     {
-        $category = Category::factory()->create();
-        $response = $this->put(self::BASE . '/' . $category->id, ['name' => 'updated name'], ['accept' => 'application/json']);
+        $tag = Tag::factory()->create();
+        $response = $this->put(self::BASE . '/' . $tag->id, ['name' => 'updated name'], ['accept' => 'application/json']);
         $response->assertStatus(200);
-        $this->assertDatabaseHas('categories', ['name' => 'updated name']);
+        $this->assertDatabaseHas('tags', ['name' => 'updated name']);
     }
 
     public function test_delete()
     {
-        $category = Category::factory()->create();
-        $response = $this->delete(self::BASE . '/' . $category->id, [], ['accept' => 'application/json']);
+        $tag = Tag::factory()->create();
+        $response = $this->delete(self::BASE . '/' . $tag->id, [], ['accept' => 'application/json']);
         $response->assertStatus(200);
-        $this->assertDatabaseCount('categories', 0);
+        $this->assertDatabaseCount('tags', 0);
     }
 
     public function test_read_404()

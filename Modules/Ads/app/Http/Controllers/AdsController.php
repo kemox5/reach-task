@@ -29,6 +29,13 @@ class AdsController extends ApisController
     {
         $ad = new Ad();
         $ad->fill($request->all())->save();
+
+        if ($request->has('tags')) {
+            $ad->tags()->sync($request->input('tags'));
+        }
+
+        $ad->load(['category', 'tags']);
+
         return $this->success($ad);
     }
 
@@ -40,6 +47,8 @@ class AdsController extends ApisController
      */
     public function show(Ad $ad)
     {
+        $ad->load(['category', 'tags']);
+
         return $this->success($ad);
     }
 
@@ -53,6 +62,12 @@ class AdsController extends ApisController
     public function update(UpdateAdRequest $request, Ad $ad)
     {
         $ad->fill($request->all())->save();
+        if ($request->has('tags')) {
+            $ad->tags()->sync($request->input('tags'));
+        }
+
+        $ad->load(['category', 'tags']);
+
         return $this->success($ad);
     }
 

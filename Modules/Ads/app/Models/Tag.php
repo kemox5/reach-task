@@ -10,6 +10,8 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     protected static function newFactory()
     {
         return TagFactory::new();

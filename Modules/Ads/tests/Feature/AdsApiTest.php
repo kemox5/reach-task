@@ -4,6 +4,7 @@ namespace Modules\Ads\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Ads\App\Models\Ad;
+use Modules\Ads\App\Models\Tag;
 use Tests\TestCase;
 
 class AdsApiTest extends TestCase
@@ -34,6 +35,106 @@ class AdsApiTest extends TestCase
                 $json->etc();
             });
     }
+
+    public function test_advertiser_exists_validation_in_create()
+    {
+        $ad = Ad::factory()->create()->toArray();
+        $ad['advertiser_id'] = 500;
+
+        $response = $this->post(self::BASE,  $ad, ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->has('errors.advertiser_id');
+                $json->etc();
+            });;
+    }
+
+
+    public function test_advertiser_exists_validation_in_update()
+    {
+        $ad = Ad::factory()->create();
+
+        $response = $this->put(self::BASE . '/' . $ad->id,  ['advertiser_id' => 5], ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->has('errors.advertiser_id');
+                $json->etc();
+            });;
+    }
+
+    public function test_category_exists_validation_in_create()
+    {
+        $ad = Ad::factory()->make()->toArray();
+        $ad['category_id'] = 500;
+
+        $response = $this->post(self::BASE,  $ad, ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->has('errors.category_id');
+                $json->etc();
+            });
+    }
+
+
+    public function test_category_exists_validation_in_update()
+    {
+        $ad = Ad::factory()->create();
+
+        $response = $this->put(self::BASE . '/' . $ad->id,  ['category_id' => 5], ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->has('errors.category_id');
+                $json->etc();
+            });
+    }
+
+
+    public function test_tags_exists_validation_in_create()
+    {
+        $ad = Ad::factory()->make()->toArray();
+        $ad['tags'] = [1, 2, 3];
+
+        $response = $this->post(self::BASE,  $ad, ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->etc();
+            });;
+    }
+
+
+    public function test_tags_exists_validation_in_update()
+    {
+        $ad = Ad::factory()->create();
+
+        $response = $this->put(self::BASE . '/' . $ad->id,  ['tags' => [1, 3, 5, 4]], ['accept' => 'application/json']);
+        $response->assertStatus(422)
+            ->assertJson(function ($json) {
+                $json->where('success', false);
+                $json->etc();
+            });
+    }
+
+    public function test_tags_relation_created()
+    {
+        $tags = Tag::factory(3)->create();
+
+        $ad = Ad::factory()->make()->toArray();
+        $ad['tags'] =  $tags->pluck('id')->toArray();
+        $response = $this->post(self::BASE,  $ad, ['accept' => 'application/json']);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('ad_tag', [
+            'ad_id' => 1,
+            'tag_id' => 2
+        ])
+            ->assertDatabaseCount('ad_tag', 3);
+    }
+
 
     public function test_create()
     {

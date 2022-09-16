@@ -29,7 +29,9 @@ class StoreAdRequest extends ApiRequest
             'description' => ['required'],
             'category_id' => ['required', 'exists:categories,id'],
             'advertiser_id' => ['required', 'exists:advertisers,id'],
-            'start_date' => ['required', 'date']
+            'start_date' => ['required', 'date'],
+            'tags' => ['array', 'nullable'],
+            'tags.*' => ['exists:tags,id']
         ];
     }
 }
