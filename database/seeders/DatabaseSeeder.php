@@ -28,14 +28,16 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        Advertiser::factory(5)->create();
-        Tag::factory(20)->create();
-        Category::factory(5)->create();
-        Ad::factory(50)->create()->each(function ($ad) {
-            DB::table('ad_tag')->insert([
-                'ad_id' => $ad->id,
-                'tag_id' => rand(1, 20)
-            ]);
+        // Advertiser::factory(5)->create();
+        Tag::factory(30)->create();
+        // Category::factory(5)->create();
+
+        Ad::factory(120)->create()->each(function ($ad) {
+            for ($i = 0; $i < 2; $i++)
+                DB::table('ad_tag')->insert([
+                    'ad_id' => $ad->id,
+                    'tag_id' => rand(1, 20)
+                ]);
         });
     }
 }

@@ -17,9 +17,6 @@ class AdsServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/ads.php', 'Ads');
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-
-
-
         $this->app->register(AdsRouteServiceProvider::class);
     }
 

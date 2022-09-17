@@ -1,64 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+<h1 align="center">Backend Task</h1>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/kemox5/reach-task?color=56BEB8">
+
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/kemox5/reach-task?color=56BEB8">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/kemox5/reach-task?color=56BEB8">
+
+  <img alt="License" src="https://img.shields.io/github/license/kemox5/reach-task?color=56BEB8">
+
+  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/kemox5/reach-task?color=56BEB8" /> -->
+
+  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/kemox5/reach-task?color=56BEB8" /> -->
+
+  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/kemox5/reach-task?color=56BEB8" /> -->
 </p>
 
-## About Laravel
+<!-- Status -->
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<!-- <h4 align="center"> 
+	🚧  Reach Task 🚀 Under construction...  🚧
+</h4> 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<hr> -->
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<p align="center">
+  <a href="#features">Features</a> &#xa0; | &#xa0;
+  <a href="#technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#starting">Starting</a> &#xa0; | &#xa0;
+  <a href="https://github.com/kemox5" target="_blank">Author</a>
+</p>
 
-## Learning Laravel
+<br>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Features ##
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Ads module "Modules/Ads"
+  - Feature tests "Modules/Ads/tests/Feature"
+  - Migrations, factories and seeders "Modules/Ads/database"
+  - Routes "Modules/Ads/routes/api.php"
+  - Controllers "Modules/Ads/app/Http/Controllers"
+  - Requests and validation rules "Modules/Ads/app/Http/Requests"
+  - Using ads filter trait "Modules/Ads/app/Traits/AdFilters.php" 
+  - Scheduled mail reminder using job "Modules/Ads/app/Jobs/SendReminderMailToAdvertisers.php" and registered in "Modules/Ads/app/Providers/AdsServiceProvider.php"
 
-## Laravel Sponsors
+<br>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Technologies ##
 
-### Premium Partners
+The following tools were used in this project:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- [laravel/framework 9.19](https://laravel.com/docs/9.x)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<br>
 
-## Code of Conduct
+## Requirements ##
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- php 8.1
+- composer v2
+- sqlite or any other relational dbms
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<br>
 
-## License
+## Postman collection ##
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- https://www.getpostman.com/collections/c25817ee3e279aae70a3
+
+<br>
+
+## Starting ##
+
+```bash
+# Clone this project
+$ git clone https://github.com/kemox5/reach-task.git
+
+# Access
+$ cd reach-task
+
+# Directory Permissions
+$ chmod -R 777 storage bootstrap/cache
+
+# Install dependencies
+$ composer install
+
+# Copy .env
+$ php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+# Generate key
+$ php artisan key:generate
+
+# Create Database
+$ mkdir -p database
+$ touch database/database.sqlite
+
+# update .env file database section with
+  DB_CONNECTION=sqlite
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=project_folder/database/database.sqlite
+
+# migrate database
+$ php artisan migrate
+
+# seed database
+$ php artisan db:seed
+
+# Execute tests (Unit and Feature tests) via PHPUnit
+$ vendor/bin/phpunit
+
+# Run the project
+$ php artisan serv
+
+# The server will initialize in the <http://127.0.0.1:8000>
+```
+
+
+<a href="#top">Back to top</a>

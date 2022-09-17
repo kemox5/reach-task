@@ -24,8 +24,8 @@ class AdFactory extends Factory
             'type' => fake()->randomElement(['free', 'paid']),
             'title' => fake()->sentence(4),
             'description' => fake()->paragraph(3),
-            'category_id' => Category::factory(),
-            'advertiser_id' => Advertiser::factory(),
+            'category_id' => (Category::count() > 5) ? Category::inRandomOrder()->first()->id : Category::factory(),
+            'advertiser_id' => (Advertiser::count() > 5) ? Advertiser::inRandomOrder()->first()->id : Advertiser::factory(),
             'start_date' => fake()->dateTimeBetween('now', '+12 months')->format('Y-m-d'),
         ];
     }
